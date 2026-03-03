@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:v="urn:schemas-microsoft-com:vml"
@@ -34,9 +33,12 @@
         border: 0;
         display: block;
       }
+      /* Fix for Outlook list spacing */
+      li {
+        mso-line-height-rule: exactly;
+      }
       @media only screen and (max-width: 650px) {
         .full-width {
-          width: 100% !important;
           width: 100% !important;
         }
         .stack {
@@ -44,32 +46,83 @@
           width: 100% !important;
           box-sizing: border-box !important;
         }
+        .mobile-padding {
+          padding-left: 15px !important;
+          padding-right: 15px !important;
+        }
+        .hero-text-size {
+          font-size: 22px !important;
+        }
+        .info-bar-cell {
+          display: block !important;
+          width: 100% !important;
+        }
       }
     </style>
   </head>
 
-  <body style="margin: 0; padding: 0; background: #0a0a1a">
-    <table width="100%" bgcolor="#0a0a1a" cellpadding="0" cellspacing="0">
+  <body style="margin: 0; padding: 0; background: #ffffff">
+    <!-- PREVIEW TEXT (hidden) -->
+    <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all">
+      TMS AITECH 2026 — Maritime 4.0 and Beyond: Accelerating Intelligence in
+      Motion. April 14, 2026 | Taj Exotica Resort, Dubai
+    </div>
+
+    <table
+      width="100%"
+      bgcolor="#ffffff"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      role="presentation"
+    >
       <tr>
         <td align="center">
-          <!-- MAIN CONTAINER -->
+          <!-- MAIN CONTAINER 650px -->
           <table
             width="650"
             cellpadding="0"
             cellspacing="0"
-            style="width: 650px; background: #ffffff"
+            border="0"
+            role="presentation"
+            style="width: 650px; max-width: 650px; background: #ffffff"
           >
             <!-- ================= HERO SECTION ================= -->
+            <!--
+              ROOT CAUSES OF FULL-WIDTH STRETCH IN OUTLOOK — ALL FIXED HERE:
+
+              FIX 1 (applied to MAIN CONTAINER table above this section):
+                Add align="center" as HTML attribute to the main 650px container <table>.
+                Outlook's Word engine centers tables via the HTML align attr — NOT via
+                the parent <td align="center">. Without this, VML renders at 650px but
+                left-aligned, making the outer page background fill visually appear
+                as if the email is "full width".
+                CHANGE: <table width="650" ... > → <table width="650" align="center" ... >
+
+              FIX 2 (hero VML rect):
+                Remove ALL extra VML style properties that cause the Word engine to
+                re-evaluate positioning: no display:inline-block, no position:relative,
+                no mso-width-percent. Use ONLY width and height.
+                style="width:650px; height:450px;" — nothing else.
+
+              FIX 3 (v:textbox):
+                Add style="mso-fit-shape-to-text:false;" to <v:textbox>.
+                Without this, Word resizes the rect to fit text content, overriding
+                the explicit height and potentially width constraints.
+
+              FIX 4 (inner table inside VML):
+                Use HTML width="650" attribute AND style="width:650px;" CSS together.
+                Remove min-height — inside VML textbox this causes Word to expand
+                the rect beyond the declared height:450px.
+            -->
             <tr>
               <td
                 align="center"
+                valign="top"
                 bgcolor="#050510"
-                background="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-hero-bg.jpeg"
                 style="
                   padding: 0;
-                  line-height: 0;
-                  mso-line-height-rule: exactly;
-                  width: 650px;
+                  background-color: #050510;
                   background-image: url(&quot;https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-hero-bg.jpeg&quot;);
                   background-position: center top;
                   background-repeat: no-repeat;
@@ -78,13 +131,27 @@
               >
                 <!--[if gte mso 9]>
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:650px;height:450px;">
-                <v:fill type="frame" src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-hero-bg.jpeg" color="#050510" />
-                <v:textbox inset="0,0,0,0">
+                  <v:fill type="frame" src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-hero-bg.jpeg" color="#050510" />
+                  <v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:false;">
                 <![endif]-->
-                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <table
+                  width="650"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="width: 650px"
+                >
                   <tr>
-                    <td align="center" style="padding: 60px 20px 20px 20px">
-                      <a href="https://tmsaitechconference.com/">
+                    <td
+                      align="center"
+                      valign="top"
+                      style="padding: 60px 20px 20px 20px"
+                    >
+                      <a
+                        href="https://tmsaitechconference.com/"
+                        style="text-decoration: none; display: block"
+                      >
                         <img
                           src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH%20E-LOGO.png"
                           width="480"
@@ -94,6 +161,7 @@
                             max-width: 100%;
                             height: auto;
                             display: block;
+                            margin: 0 auto;
                           "
                         />
                       </a>
@@ -102,149 +170,426 @@
                   <tr>
                     <td
                       align="center"
+                      valign="top"
                       style="
-                        padding: 0 20px 100px 20px;
-                        font-family: Roboto, sans-serif;
+                        padding: 0 20px 80px 20px;
+                        font-family: Roboto, Arial, sans-serif;
                         color: #ffffff;
                         text-align: center;
                       "
                     >
-                      <div
+                      <p
                         style="
+                          margin: 0 0 5px 0;
                           font-size: 28px;
                           font-weight: bold;
                           line-height: 1.2;
-                          margin-bottom: 5px;
-                          font-family: Roboto, sans-serif;
+                          font-family: Roboto, Arial, sans-serif;
+                          color: #ffffff;
+                          mso-line-height-rule: exactly;
                         "
                       >
                         Maritime 4.0 and Beyond:
-                      </div>
-                      <div
+                      </p>
+                      <p
                         style="
+                          margin: 0;
                           font-size: 28px;
                           font-weight: normal;
                           line-height: 1.2;
-                          font-family: Roboto, sans-serif;
+                          font-family: Roboto, Arial, sans-serif;
+                          color: #ffffff;
+                          mso-line-height-rule: exactly;
                         "
                       >
                         Accelerating Intelligence in Motion
-                      </div>
+                      </p>
                     </td>
                   </tr>
                 </table>
                 <!--[if gte mso 9]>
-                </v:textbox>
+                  </v:textbox>
                 </v:rect>
                 <![endif]-->
               </td>
             </tr>
 
             <!-- ================= INFO BARS (DATE & VENUE) ================= -->
+            <!--
+              ICON CROPPING FIX:
+              Outlook's Word engine clips content at the left boundary of nested
+              inner tables (2+ levels deep). The icon <td> had padding-right only
+              and zero left padding, placing the icon image at exactly x=0 of the
+              inner table — Outlook clips 1-3px there.
+
+              Fix applied to ALL icon cells:
+              - Changed icon <td> from padding-right:12px  
+                to padding: 0 12px 0 4px  (4px left buffer prevents clipping)
+              - Added mso-padding-alt to reinforce padding in Outlook Word engine
+              - Icon cell given explicit vertical-align:middle in both HTML attr
+                and inline style for consistent rendering across all Outlook versions
+            -->
             <tr>
-              <td align="center" bgcolor="#ffffff" class="full-width">
+              <td
+                align="center"
+                bgcolor="#602cd2"
+                style="
+                  padding: 0;
+                  font-size: 0;
+                  line-height: 0;
+                  background-color: #602cd2;
+                "
+              >
+                <!--[if mso]>
+                  <table
+                    width="650"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="
+                      width: 650px;
+                      border-collapse: collapse;
+                      table-layout: fixed;
+                      mso-table-lspace: 0pt;
+                      mso-table-rspace: 0pt;
+                    "
+                  >
+                    <tr>
+                      <td
+                        width="325"
+                        valign="middle"
+                        align="middle"
+                        bgcolor="#602cd2"
+                        style="
+                          width: 325px;
+                          padding: 15px 20px;
+                          background-color: #602cd2;
+                          vertical-align: middle;
+                        "
+                      >
+                        <table
+                          width="285"
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          style="
+                            width: 285px;
+                            mso-table-lspace: 0pt;
+                            mso-table-rspace: 0pt;
+                          "
+                        >
+                          <tr>
+                            <td
+                              valign="middle"
+                              align="center"
+                              bgcolor="#602cd2"
+                              style="
+                                width: 45px;
+                                padding: 0 10px 0 4px;
+                                vertical-align: middle;
+                                line-height: 0;
+                                font-size: 0;
+                                background-color: #602cd2;
+                                mso-padding-alt: 0 10px 0 4px;
+                                border: none;
+                                mso-border-alt: none;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/calander-icon.png"
+                                width="33"
+                                height="33"
+                                alt="Date"
+                                border="0"
+                                style="
+                                  width: 33px;
+                                  height: 33px;
+                                  display: block;
+                                  border: 0;
+                                  outline: none;
+                                  text-decoration: none;
+                                  mso-border-alt: none;
+                                  ms-interpolation-mode: bicubic;
+                                "
+                              />
+                            </td>
+                            <td
+                              valign="middle"
+                              style="
+                                font-family: Arial, sans-serif;
+                                color: #ffffff;
+                                font-size: 14px;
+                                line-height: 19px;
+                                vertical-align: middle;
+                                mso-line-height-rule: exactly;
+                              "
+                            >
+                              <strong
+                                style="
+                                  font-weight: bold;
+                                  color: #ffffff;
+                                  display: block;
+                                  font-family: Arial, sans-serif;
+                                  font-size: 14px;
+                                  line-height: 19px;
+                                  mso-line-height-rule: exactly;
+                                "
+                                >Date:</strong
+                              >
+                              <span
+                                style="
+                                  font-family: Arial, sans-serif;
+                                  color: #ffffff;
+                                  font-size: 14px;
+                                "
+                                >Tuesday, April 14, 2026</span
+                              >
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td
+                        width="325"
+                        valign="middle"
+                        align="left"
+                        bgcolor="#521c8c"
+                        style="
+                          width: 325px;
+                          padding: 15px 20px;
+                          background-color: #521c8c;
+                          vertical-align: middle;
+                        "
+                      >
+                        <table
+                          width="285"
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          style="
+                            width: 285px;
+                            mso-table-lspace: 0pt;
+                            mso-table-rspace: 0pt;
+                          "
+                        >
+                          <tr>
+                            <td
+                              valign="middle"
+                              align="center"
+                              bgcolor="#521c8c"
+                              style="
+                                width: 45px;
+                                padding: 0 10px 0 4px;
+                                vertical-align: middle;
+                                line-height: 0;
+                                font-size: 0;
+                                background-color: #521c8c;
+                                mso-padding-alt: 0 10px 0 4px;
+                                border: none;
+                                mso-border-alt: none;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/location-icon.png"
+                                width="33"
+                                height="33"
+                                alt="Venue"
+                                border="0"
+                                style="
+                                  width: 33px;
+                                  height: 33px;
+                                  display: block;
+                                  border: 0;
+                                  outline: none;
+                                  text-decoration: none;
+                                  mso-border-alt: none;
+                                  ms-interpolation-mode: bicubic;
+                                "
+                              />
+                            </td>
+                            <td
+                              valign="middle"
+                              style="
+                                font-family: Arial, sans-serif;
+                                color: #ffffff;
+                                font-size: 13px;
+                                line-height: 18px;
+                                vertical-align: middle;
+                                mso-line-height-rule: exactly;
+                              "
+                            >
+                              <strong
+                                style="
+                                  font-weight: bold;
+                                  color: #ffffff;
+                                  display: block;
+                                  font-family: Arial, sans-serif;
+                                  font-size: 13px;
+                                  line-height: 18px;
+                                  mso-line-height-rule: exactly;
+                                "
+                                >Venue:</strong
+                              >
+                              <span
+                                style="
+                                  font-family: Arial, sans-serif;
+                                  color: #ffffff;
+                                  font-size: 13px;
+                                "
+                                >Taj Exotica Resort, The Palm, Dubai</span
+                              >
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                <![endif]-->
+
+                <!--[if !mso]><!-->
                 <table
                   width="650"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
+                  role="presentation"
                   style="
                     width: 650px;
+                    max-width: 650px;
                     border-collapse: collapse;
-                    table-layout: fixed;
+                    font-size: 0;
+                    line-height: 0;
                   "
                 >
                   <tr>
-                    <!-- DATE BAR -->
                     <td
                       width="325"
-                      align="left"
+                      align="middle"
                       valign="middle"
                       bgcolor="#602cd2"
-                      style="padding: 15px 30px; width: 325px"
+                      style="
+                        width: 325px;
+                        padding: 15px 20px;
+                        background-color: #602cd2;
+                        vertical-align: middle;
+                      "
                     >
                       <table
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        align="center"
+                        role="presentation"
                       >
                         <tr>
                           <td
-                            style="padding-right: 15px; vertical-align: middle"
+                            valign="middle"
+                            align="center"
+                            style="
+                              padding: 0 8px 0 12px;
+                              vertical-align: middle;
+                              line-height: 0;
+                            "
                           >
                             <img
                               src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/calander-icon.png"
-                              width="50"
+                              width="33"
+                              height="33"
                               alt="Date"
-                              style="width: 50px; height: auto; display: block"
+                              style="width: 33px; height: 33px; display: block"
                             />
                           </td>
                           <td
+                            valign="middle"
                             style="
                               font-family: Roboto, sans-serif;
                               color: #ffffff;
-                              font-size: 16px;
+                              font-size: 14px;
                               line-height: 1.3;
                               vertical-align: middle;
                             "
                           >
-                            <span
+                            <strong
                               style="
                                 font-weight: bold;
                                 font-family: Roboto, sans-serif;
+                                color: #ffffff;
+                                display: block;
                               "
-                              >Date:</span
-                            ><br />
-                            <span style="font-family: Roboto, sans-serif"
-                              >April 14, 2026</span
+                              >Date:</strong
+                            >
+                            <span
+                              style="
+                                font-family: Roboto, sans-serif;
+                                color: #ffffff;
+                              "
+                              >Tuesday, April 14, 2026</span
                             >
                           </td>
                         </tr>
                       </table>
                     </td>
-                    <!-- VENUE BAR -->
                     <td
                       width="325"
                       align="left"
                       valign="middle"
                       bgcolor="#521c8c"
-                      style="padding: 15px 30px; width: 325px"
+                      style="
+                        width: 325px;
+                        padding: 15px 20px;
+                        background-color: #521c8c;
+                        vertical-align: middle;
+                      "
                     >
                       <table
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        align="center"
+                        role="presentation"
                       >
                         <tr>
                           <td
-                            style="padding-right: 15px; vertical-align: middle"
+                            valign="middle"
+                            align="center"
+                            style="
+                              padding: 0 8px 0 0;
+                              vertical-align: middle;
+                              line-height: 0;
+                            "
                           >
                             <img
                               src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/location-icon.png"
-                              width="40"
+                              width="33"
+                              height="33"
                               alt="Venue"
-                              style="width: 40px; height: auto; display: block"
+                              style="width: 33px; height: 33px; display: block"
                             />
                           </td>
                           <td
+                            valign="middle"
                             style="
                               font-family: Roboto, sans-serif;
                               color: #ffffff;
-                              font-size: 16px;
+                              font-size: 14px;
                               line-height: 1.3;
                               vertical-align: middle;
                             "
                           >
-                            <span
+                            <strong
                               style="
                                 font-weight: bold;
-                                font-family: Roboto, sans-serif;
+                                font-family: Roboto, Arial, sans-serif;
+                                color: #ffffff;
+                                display: block;
                               "
-                              >Venue:</span
-                            ><br />
-                            <span style="font-family: Roboto, sans-serif"
+                              >Venue:</strong
+                            >
+                            <span
+                              style="
+                                font-family: Roboto, sans-serif;
+                                color: #ffffff;
+                              "
                               >Taj Exotica Resort, The Palm, Dubai</span
                             >
                           </td>
@@ -253,49 +598,96 @@
                     </td>
                   </tr>
                 </table>
+                <!--<![endif]-->
               </td>
             </tr>
 
             <!-- ================= TIME BAR ================= -->
             <tr>
-              <td align="center" bgcolor="#112c6a" style="padding: 15px 10px">
+              <td
+                align="center"
+                bgcolor="#112c6a"
+                style="padding: 0; background-color: #112c6a"
+              >
                 <table
                   width="650"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
-                  style="width: 650px"
-                  class="full-width"
+                  role="presentation"
+                  style="width: 650px; background-color: #112c6a"
                 >
                   <tr>
-                    <td align="center">
-                      <table border="0" cellpadding="0" cellspacing="0">
+                    <td
+                      align="center"
+                      style="padding: 15px 20px; background-color: #112c6a"
+                    >
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        align="center"
+                      >
                         <tr>
                           <td
-                            style="padding-right: 12px; vertical-align: middle"
+                            valign="middle"
+                            align="center"
+                            bgcolor="#112c6a"
+                            style="
+                              padding: 0 8px 0 4px;
+                              vertical-align: middle;
+                              line-height: 0;
+                              font-size: 0;
+                              background-color: #112c6a;
+                              border: none;
+                              mso-border-alt: none;
+                              mso-padding-alt: 0 8px 0 4px;
+                            "
                           >
                             <img
                               src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/clock-icon.png"
-                              width="30"
-                              alt="Clock Icon"
-                              style="width: 30px; height: auto; display: block"
+                              width="28"
+                              height="28"
+                              alt=""
+                              border="0"
+                              style="
+                                width: 28px;
+                                height: 28px;
+                                display: block;
+                                border: 0;
+                                outline: none;
+                                text-decoration: none;
+                                mso-border-alt: none;
+                                ms-interpolation-mode: bicubic;
+                              "
                             />
                           </td>
                           <td
+                            valign="middle"
                             style="
-                              font-family: Arial, sans-serif;
+                              font-family: Roboto, sans-serif;
                               color: #ffffff;
-                              font-size: 16px;
-                              line-height: 1.2;
+                              font-size: 14px;
+                              line-height: 21px;
                               vertical-align: middle;
+                              mso-line-height-rule: exactly;
                             "
                           >
-                            <span style="font-weight: bold"
-                              >Conference Time:</span
+                            <strong
+                              style="
+                                color: #ffffff;
+                                font-family: Roboto, sans-serif;
+                              "
+                              >Conference Time:</strong
                             >
-                            14:30 - 18:00 &nbsp; | &nbsp;
-                            <span style="font-weight: bold"
-                              >Networking Cocktails:</span
+                            14:30 - 18:00 &nbsp;|&nbsp;
+                            <strong
+                              style="
+                                color: #ffffff;
+                                font-family: Roboto, sans-serif;
+                              "
+                              >Networking Cocktails and Dinner:</strong
                             >
                             18:00 onwards
                           </td>
@@ -306,22 +698,21 @@
                 </table>
               </td>
             </tr>
-
             <!-- ================= LAUNCH TEXT ================= -->
             <tr>
               <td
                 align="center"
                 bgcolor="#ffffff"
-                style="padding: 40px 40px 40px 40px"
+                style="padding: 40px 40px; background-color: #ffffff"
               >
                 <table
                   width="100%"
                   cellpadding="0"
                   cellspacing="0"
                   border="0"
-                  style="max-width: 600px"
+                  role="presentation"
+                  style="max-width: 560px"
                 >
-                  <!-- Top Line -->
                   <tr>
                     <td
                       align="center"
@@ -331,6 +722,7 @@
                         color: #000000;
                         line-height: 1.4;
                         padding-bottom: 4px;
+                        mso-line-height-rule: exactly;
                       "
                     >
                       <span style="color: #112c6a; font-weight: bold"
@@ -339,7 +731,6 @@
                       announces the official launch of
                     </td>
                   </tr>
-                  <!-- Main Title -->
                   <tr>
                     <td
                       align="center"
@@ -349,12 +740,12 @@
                         font-weight: 800;
                         color: #602cd2;
                         padding-bottom: 4px;
+                        mso-line-height-rule: exactly;
                       "
                     >
                       TMS AITECH 2026
                     </td>
                   </tr>
-                  <!-- Platform Description -->
                   <tr>
                     <td
                       align="center"
@@ -364,14 +755,14 @@
                         color: #000000;
                         line-height: 1.5;
                         padding-bottom: 20px;
+                        mso-line-height-rule: exactly;
                       "
                     >
-                      a new platform focused on artificial intelligence, digital
-                      transformation,<br />and the future of intelligent
+                      A dedicated platform focused on artificial intelligence,
+                      digital transformation, and the future of intelligent
                       shipping.
                     </td>
                   </tr>
-                  <!-- Themed Section -->
                   <tr>
                     <td
                       align="center"
@@ -380,41 +771,193 @@
                         font-size: 16px;
                         color: #000000;
                         line-height: 1.6;
+                        mso-line-height-rule: exactly;
                       "
                     >
                       Themed
                       <span style="color: #602cd2; font-weight: bold"
-                        >“Maritime 4.0 and Beyond: Accelerating Intelligence in
-                        Motion”</span
-                      ><br />
+                        >&ldquo;Maritime 4.0 and Beyond: Accelerating
+                        Intelligence in Motion&rdquo;</span
+                      >
                       the event comes at a decisive moment as data-driven
-                      operations,<br />
-                      autonomous systems, predictive analytics, and new IMO
-                      digital<br />
-                      frameworks begin to redefine how global maritime trade
-                      operates.
+                      operations, autonomous systems, predictive analytics, and
+                      new IMO digital frameworks begin to redefine how global
+                      maritime trade operates.
                     </td>
                   </tr>
+                  <!-- ===== TWO BUTTONS ROW ===== -->
+                  <tr>
+                    <td align="center" style="padding: 25px 0 10px 0">
+                      <!-- OUTLOOK: VML buttons side by side -->
+                      <!--[if mso]>
+                        <table
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                        >
+                          <tr>
+                            <td style="padding-right: 20px">
+                              <v:rect
+                                xmlns:v="urn:schemas-microsoft-com:vml"
+                                xmlns:w="urn:schemas-microsoft-com:office:word"
+                                href="https://tmsaitechconference.com/delegate-registration-payment"
+                                style="height: 50px; width: 210px"
+                                stroke="f"
+                                fillcolor="#123674"
+                              >
+                                <w:anchorlock />
+                                <v:fill
+                                  type="frame"
+                                  src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-register-btn.jpeg"
+                                  color="#123674"
+                                />
+                                <v:textbox
+                                  inset="0,0,0,0"
+                                  style="mso-fit-shape-to-text: false"
+                                >
+                                  <table
+                                    width="210"
+                                    border="0"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    role="presentation"
+                                    style="width: 210px; height: 50px"
+                                  >
+                                    <tr>
+                                      <td
+                                        style="height: 50px; line-height: 50px"
+                                      >
+                                        &nbsp;
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </v:textbox>
+                              </v:rect>
+                            </td>
+                            <td>
+                              <v:rect
+                                xmlns:v="urn:schemas-microsoft-com:vml"
+                                xmlns:w="urn:schemas-microsoft-com:office:word"
+                                href="https://tmsaitechconference.com/conference-programme"
+                                style="height: 50px; width: 210px"
+                                stroke="f"
+                                fillcolor="#123674"
+                              >
+                                <w:anchorlock />
+                                <v:fill
+                                  type="frame"
+                                  src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-agenda-btn.jpeg"
+                                  color="#123674"
+                                />
+                                <v:textbox
+                                  inset="0,0,0,0"
+                                  style="mso-fit-shape-to-text: false"
+                                >
+                                  <table
+                                    width="210"
+                                    border="0"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    role="presentation"
+                                    style="width: 210px; height: 50px"
+                                  >
+                                    <tr>
+                                      <td
+                                        style="height: 50px; line-height: 50px"
+                                      >
+                                        &nbsp;
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </v:textbox>
+                              </v:rect>
+                            </td>
+                          </tr>
+                        </table>
+                      <![endif]-->
+
+                      <!-- NON-OUTLOOK: Gmail, Zoho, Apple Mail, Yahoo -->
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="display: inline-table; mso-hide: all"
+                      >
+                        <tr>
+                          <!-- Register NOW — image button (temporary agenda URL) -->
+                          <td style="padding-right: 20px; mso-hide: all">
+                            <a
+                              href="https://tmsaitechconference.com/delegate-registration-payment"
+                              target="_blank"
+                              style="
+                                display: block;
+                                text-decoration: none;
+                                line-height: 0;
+                                mso-hide: all;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-register-btn.jpeg"
+                                width="210"
+                                height="50"
+                                alt="Register Now"
+                                style="
+                                  display: block;
+                                  width: 210px;
+                                  height: 50px;
+                                  border: 0;
+                                "
+                              />
+                            </a>
+                          </td>
+                          <!-- Agenda — image button -->
+                          <td style="mso-hide: all">
+                            <a
+                              href="https://tmsaitechconference.com/conference-programme"
+                              target="_blank"
+                              style="
+                                display: block;
+                                text-decoration: none;
+                                line-height: 0;
+                                mso-hide: all;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-agenda-btn.jpeg"
+                                width="210"
+                                height="50"
+                                alt="Agenda"
+                                style="
+                                  display: block;
+                                  width: 210px;
+                                  height: 50px;
+                                  border: 0;
+                                "
+                              />
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- ===== END TWO BUTTONS ROW ===== -->
                 </table>
               </td>
             </tr>
 
-            <!-- ================= Text Banner ================= -->
+            <!-- ================= TEXT BANNER ================= -->
             <tr>
               <td
                 align="center"
                 bgcolor="#123674"
                 style="
                   background-color: #123674;
-                  padding: 40px 80px;
+                  padding: 40px 60px;
                   text-align: center;
                 "
               >
-                <!--[if gte mso 9]>
-                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:650px;height:120px;">
-                <v:fill type="solid" color="#112c6a" />
-                <v:textbox inset="0,0,0,0">
-                <![endif]-->
                 <table
                   border="0"
                   cellspacing="0"
@@ -426,11 +969,12 @@
                     <td
                       align="center"
                       style="
-                        font-family: Roboto, sans-serif;
-                        font-size: 18px;
+                        font-family: Roboto, Arial, sans-serif;
+                        font-size: 16px;
                         color: #ffffff;
                         line-height: 1.6;
                         font-weight: 400;
+                        mso-line-height-rule: exactly;
                       "
                     >
                       <strong style="font-weight: 600; color: #e2a9f1"
@@ -443,58 +987,79 @@
                     </td>
                   </tr>
                 </table>
-                <!--[if gte mso 9]>
-                </v:textbox>
-                </v:rect>
-                <![endif]-->
               </td>
             </tr>
+
             <!-- ================= WHAT AITECH DELIVERS ================= -->
+            <!--
+              FIX: Two-column layout fixed using same inline-table technique.
+              Outlook requires explicit HTML width attributes + matching CSS widths.
+              Consistent use of font-family with Arial fallback.
+            -->
             <tr>
               <td
                 align="center"
                 bgcolor="#ffffff"
-                style="padding: 40px 10px 40px 10px !important"
+                style="
+                  padding: 40px 20px;
+                  background-color: #ffffff;
+                  font-size: 0;
+                  line-height: 0;
+                "
               >
+                <!--[if mso]>
+                <table width="610" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                  align="center" style="width:610px;">
+                  <tr>
+                    <td width="290" valign="top" style="width:290px; padding-bottom:20px;">
+                <![endif]-->
+
+                <!-- LEFT COLUMN -->
                 <table
-                  width="600"
+                  width="290"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
-                  class="full-width"
-                  style="width: 600px"
+                  role="presentation"
+                  style="
+                    width: 290px;
+                    display: inline-table;
+                    vertical-align: top;
+                    padding-bottom: 20px;
+                  "
                 >
                   <tr>
-                    <!-- LEFT COLUMN -->
-                    <td
-                      width="290"
-                      align="left"
-                      valign="top"
-                      style="width: 290px; padding-bottom: 20px"
-                    >
-                      <!-- Purple Header Box -->
+                    <!-- Purple Header Box -->
+                    <td>
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        bgcolor="#602cd2"
-                        style="border-radius: 4px"
+                        bgcolor="#5e17eb"
+                        role="presentation"
+                        style="border-radius: 4px; background-color: #5e17eb"
                       >
                         <tr>
                           <td
                             align="left"
                             valign="middle"
                             style="
-                              padding: 12px 0 12px 15px;
+                              padding: 22px 0 22px 15px;
                               font-family: Roboto, sans-serif;
                               font-size: 19px;
                               color: #ffffff;
+                              background-color: #5e17eb;
                             "
                           >
                             <a
                               href="https://tmsaitechconference.com/conference-programme"
-                              style="color: #ffffff; text-decoration: none"
+                              style="
+                                color: #ffffff;
+                                text-decoration: none;
+                                font-family: Roboto, sans-serif;
+                                font-size: 19px;
+                              "
                             >
                               What
                               <strong style="color: #ffffff">AITECH</strong>
@@ -505,7 +1070,12 @@
                             width="40"
                             align="right"
                             valign="middle"
-                            style="padding-right: 15px; line-height: 1"
+                            style="
+                              padding-right: 15px;
+                              line-height: 1;
+                              width: 40px;
+                              background-color: #5e17eb;
+                            "
                           >
                             <a
                               href="https://tmsaitechconference.com/conference-programme"
@@ -513,29 +1083,32 @@
                             >
                               <img
                                 src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/altech-right-arrow.png"
-                                width="32"
-                                height="auto"
+                                width="28"
+                                height="28"
                                 alt=""
                                 style="
-                                  display: inline-block;
+                                  display: block;
+                                  width: 28px;
+                                  height: 28px;
                                   border: 0;
-                                  width: 32px;
-                                  height: auto;
-                                  vertical-align: middle;
                                 "
                               />
                             </a>
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
 
-                      <!-- Item 1: Strategic Clarity -->
+                  <!-- Item 1: Strategic Clarity -->
+                  <tr>
+                    <td style="padding-top: 20px; padding-bottom: 20px">
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        style="margin-bottom: 25px"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -543,11 +1116,12 @@
                             valign="top"
                             align="left"
                             style="
-                              padding-top: 2px;
-                              font-family: Roboto, sans-serif;
-                              font-size: 22px;
+                              width: 20px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 20px;
                               color: #641c8b;
-                              line-height: 1;
+                              line-height: 1.2;
+                              padding-top: 1px;
                             "
                           >
                             &bull;
@@ -555,25 +1129,27 @@
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 19px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 17px;
                               color: #641c8b;
                               font-weight: bold;
                               padding-bottom: 5px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Strategic Clarity
                           </td>
                         </tr>
                         <tr>
-                          <td width="20">&nbsp;</td>
+                          <td width="20" style="width: 20px">&nbsp;</td>
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 15px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 14px;
                               color: #333333;
                               line-height: 1.4;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Understand how AI and digital technologies are
@@ -582,14 +1158,18 @@
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
 
-                      <!-- Item 2: Practical Insight -->
+                  <!-- Item 2: Practical Insight -->
+                  <tr>
+                    <td style="padding-bottom: 20px">
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        style="margin-bottom: 25px"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -597,11 +1177,12 @@
                             valign="top"
                             align="left"
                             style="
-                              padding-top: 2px;
-                              font-family: Roboto, sans-serif;
-                              font-size: 22px;
+                              width: 20px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 20px;
                               color: #641c8b;
-                              line-height: 1;
+                              line-height: 1.2;
+                              padding-top: 1px;
                             "
                           >
                             &bull;
@@ -609,25 +1190,27 @@
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 19px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 17px;
                               color: #641c8b;
                               font-weight: bold;
                               padding-bottom: 5px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Practical Insight
                           </td>
                         </tr>
                         <tr>
-                          <td width="20">&nbsp;</td>
+                          <td width="20" style="width: 20px">&nbsp;</td>
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 15px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 14px;
                               color: #333333;
                               line-height: 1.4;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Gain real-world perspectives on how AI is being
@@ -636,13 +1219,18 @@
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
 
-                      <!-- Item 3: Regulatory Readiness -->
+                  <!-- Item 3: Regulatory Readiness -->
+                  <tr>
+                    <td>
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -650,11 +1238,12 @@
                             valign="top"
                             align="left"
                             style="
-                              padding-top: 2px;
-                              font-family: Roboto, sans-serif;
-                              font-size: 22px;
+                              width: 20px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 20px;
                               color: #641c8b;
-                              line-height: 1;
+                              line-height: 1.2;
+                              padding-top: 1px;
                             "
                           >
                             &bull;
@@ -662,25 +1251,27 @@
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 19px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 17px;
                               color: #641c8b;
                               font-weight: bold;
                               padding-bottom: 5px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Regulatory Readiness
                           </td>
                         </tr>
                         <tr>
-                          <td width="20">&nbsp;</td>
+                          <td width="20" style="width: 20px">&nbsp;</td>
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 15px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 14px;
                               color: #333333;
                               line-height: 1.4;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Explore the implications of IMO digital regulations
@@ -690,56 +1281,82 @@
                         </tr>
                       </table>
                     </td>
+                  </tr>
+                </table>
 
-                    <!-- SPACER COLUMN -->
-                    <td
-                      width="20"
-                      style="width: 20px; font-size: 1px; line-height: 1px"
-                    >
+                <!--[if mso]>
+                    </td>
+                    <td width="20" style="width:20px;">&nbsp;</td>
+                    <td width="290" valign="top" style="width:290px;">
+                <![endif]-->
+
+                <!-- SPACER (non-Outlook) -->
+                <table
+                  width="20"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 20px;
+                    display: inline-table;
+                    vertical-align: top;
+                  "
+                >
+                  <tr>
+                    <td style="width: 20px; font-size: 1px; line-height: 1px">
                       &nbsp;
                     </td>
+                  </tr>
+                </table>
 
-                    <!-- RIGHT COLUMN -->
-                    <td
-                      width="290"
-                      align="left"
-                      valign="top"
-                      style="width: 290px"
-                    >
-                      <!-- Photo -->
-                      <table
-                        width="100%"
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                        style="margin-bottom: 25px"
+                <!-- RIGHT COLUMN -->
+                <table
+                  width="290"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 290px;
+                    display: inline-table;
+                    vertical-align: top;
+                  "
+                >
+                  <!-- Photo -->
+                  <tr>
+                    <td align="center" style="padding-bottom: 20px">
+                      <a
+                        href="https://tmsaitechconference.com/conference-programme"
+                        target="_blank"
+                        style="display: block; text-decoration: none"
                       >
-                        <tr>
-                          <td align="center">
-                            <img
-                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-delivers.jpeg"
-                              width="290"
-                              alt="Convention photo"
-                              style="
-                                width: 100%;
-                                max-width: 290px;
-                                height: auto;
-                                border: 0;
-                                display: block;
-                                border-radius: 4px;
-                              "
-                            />
-                          </td>
-                        </tr>
-                      </table>
+                        <img
+                          src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-delivers.jpeg"
+                          width="290"
+                          alt="Convention photo"
+                          style="
+                            width: 100%;
+                            max-width: 290px;
+                            height: auto;
+                            border: 0;
+                            display: block;
+                            border-radius: 4px;
+                          "
+                        />
+                      </a>
+                    </td>
+                  </tr>
 
-                      <!-- Item 4: Executive Networking -->
+                  <!-- Item 4: Executive Networking -->
+                  <tr>
+                    <td style="padding-bottom: 20px">
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
-                        style="margin-bottom: 25px"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -747,11 +1364,12 @@
                             valign="top"
                             align="left"
                             style="
-                              padding-top: 2px;
-                              font-family: Roboto, sans-serif;
-                              font-size: 22px;
+                              width: 20px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 20px;
                               color: #641c8b;
-                              line-height: 1;
+                              line-height: 1.2;
+                              padding-top: 1px;
                             "
                           >
                             &bull;
@@ -759,25 +1377,27 @@
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 19px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 17px;
                               color: #641c8b;
                               font-weight: bold;
                               padding-bottom: 5px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Executive Networking
                           </td>
                         </tr>
                         <tr>
-                          <td width="20">&nbsp;</td>
+                          <td width="20" style="width: 20px">&nbsp;</td>
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 15px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 14px;
                               color: #333333;
                               line-height: 1.4;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Connect with senior decision-makers, technology
@@ -786,13 +1406,18 @@
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
 
-                      <!-- Item 5: Actionable Direction -->
+                  <!-- Item 5: Actionable Direction -->
+                  <tr>
+                    <td>
                       <table
                         width="100%"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -800,11 +1425,12 @@
                             valign="top"
                             align="left"
                             style="
-                              padding-top: 2px;
-                              font-family: Roboto, sans-serif;
-                              font-size: 22px;
+                              width: 20px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 20px;
                               color: #641c8b;
-                              line-height: 1;
+                              line-height: 1.2;
+                              padding-top: 1px;
                             "
                           >
                             &bull;
@@ -812,25 +1438,27 @@
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 19px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 17px;
                               color: #641c8b;
                               font-weight: bold;
                               padding-bottom: 5px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Actionable Direction
                           </td>
                         </tr>
                         <tr>
-                          <td width="20">&nbsp;</td>
+                          <td width="20" style="width: 20px">&nbsp;</td>
                           <td
                             align="left"
                             style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 15px;
+                              font-family: Roboto, Arial, sans-serif;
+                              font-size: 14px;
                               color: #333333;
                               line-height: 1.4;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Leave with clear takeaways to support smarter
@@ -842,20 +1470,28 @@
                     </td>
                   </tr>
                 </table>
+
+                <!--[if mso]>
+                    </td>
+                  </tr>
+                </table>
+                <![endif]-->
               </td>
             </tr>
 
             <!-- ===== LAUNCHING BANNER ===== -->
+            <!--
+              FIX: VML background for Outlook with correct height.
+              For non-Outlook: CSS background-image with fallback bgcolor.
+            -->
             <tr>
               <td
                 align="center"
                 bgcolor="#2a1050"
-                background="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-gradient-bg.png"
+                valign="top"
                 style="
                   padding: 0;
-                  line-height: 0;
-                  mso-line-height-rule: exactly;
-                  width: 650px;
+                  background-color: #2a1050;
                   background-image: url(&quot;https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-gradient-bg.png&quot;);
                   background-position: center;
                   background-repeat: no-repeat;
@@ -863,84 +1499,113 @@
                 "
               >
                 <!--[if gte mso 9]>
-                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:650px;height:100px;">
-                <v:fill type="frame" src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-gradient-bg.png" color="#2a1050" />
-                <v:textbox inset="0,0,0,0">
+                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false"
+                  style="width:650px; height:120px; display:inline-block;">
+                  <v:fill type="frame"
+                    src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-gradient-bg.png"
+                    color="#2a1050" />
+                  <v:textbox inset="0,0,0,0">
                 <![endif]-->
-                <table
-                  width="650"
-                  border="0"
-                  cellpadding="0"
-                  cellspacing="0"
-                  style="width: 650px"
+                <a
+                  href="https://tmsaitechconference.com/conference-programme"
+                  target="_blank"
+                  style="display: block; text-decoration: none"
                 >
-                  <tr>
-                    <td
-                      align="center"
-                      style="
-                        padding: 35px 30px;
-                        font-family: Roboto, sans-serif;
-                        color: #ffffff;
-                        line-height: 1.2;
-                      "
-                    >
-                      <div
+                  <table
+                    width="650"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="width: 650px; min-height: 120px"
+                  >
+                    <tr>
+                      <td
+                        align="center"
                         style="
-                          font-size: 13px;
-                          letter-spacing: 4px;
-                          text-transform: uppercase;
-                          margin-bottom: 8px;
-                          color: #e8ddf5;
+                          padding: 35px 30px;
+                          font-family: Roboto, Arial, sans-serif;
+                          color: #ffffff;
+                          line-height: 1.2;
+                          mso-line-height-rule: exactly;
                         "
                       >
-                        LAUNCHING THE
-                      </div>
-                      <div
-                        style="
-                          font-size: 28px;
-                          font-weight: bold;
-                          font-style: italic;
-                          letter-spacing: 0.5px;
-                        "
-                      >
-                        Next Era of Intelligent Shipping
-                      </div>
-                    </td>
-                  </tr>
-                </table>
+                        <p
+                          style="
+                            margin: 0 0 8px 0;
+                            font-size: 12px;
+                            letter-spacing: 4px;
+                            text-transform: uppercase;
+                            color: #e8ddf5;
+                            font-family: Roboto, Arial, sans-serif;
+                            mso-line-height-rule: exactly;
+                          "
+                        >
+                          LAUNCHING THE
+                        </p>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 26px;
+                            font-weight: bold;
+                            font-style: italic;
+                            letter-spacing: 0.5px;
+                            color: #ffffff;
+                            font-family: Roboto, Arial, sans-serif;
+                            mso-line-height-rule: exactly;
+                          "
+                        >
+                          Next Era of Intelligent Shipping
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </a>
                 <!--[if gte mso 9]>
-                </v:textbox>
+                  </v:textbox>
                 </v:rect>
                 <![endif]-->
               </td>
             </tr>
 
-            <!-- ===== Agenda ===== -->
+            <!-- ===== AGENDA ===== -->
             <tr>
               <td
                 align="center"
                 bgcolor="#ffffff"
-                style="padding: 50px 20px 50px 20px"
+                style="
+                  padding: 50px 20px;
+                  background-color: #ffffff;
+                  font-size: 0;
+                  line-height: 0;
+                "
               >
+                <!--[if mso]>
+    <table width="610" border="0" cellpadding="0" cellspacing="0" role="presentation"
+      align="center" style="width:610px;">
+      <tr>
+        <td width="290" valign="top" style="width:290px; padding-bottom:20px;">
+    <![endif]-->
+
+                <!-- LEFT: Image -->
                 <table
-                  width="610"
+                  width="290"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
-                  class="full-width"
-                  style="width: 610px"
+                  role="presentation"
+                  style="
+                    width: 290px;
+                    display: inline-table;
+                    vertical-align: top;
+                    padding-bottom: 20px;
+                  "
                 >
                   <tr>
-                    <!-- LEFT COLUMN: Image -->
-                    <td
-                      width="290"
-                      align="center"
-                      valign="top"
-                      style="width: 290px; padding-bottom: 20px"
-                    >
+                    <td align="center">
                       <a
                         href="https://tmsaitechconference.com/conference-programme"
-                        style="text-decoration: none"
+                        style="text-decoration: none; display: block"
                       >
                         <img
                           src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-shipping.jpeg"
@@ -957,113 +1622,187 @@
                         />
                       </a>
                     </td>
+                  </tr>
+                </table>
 
-                    <!-- SPACER -->
-                    <td
-                      width="30"
-                      style="width: 30px; font-size: 1px; line-height: 1px"
-                    >
+                <!--[if mso]>
+        </td>
+        <td width="30" style="width:30px;">&nbsp;</td>
+        <td width="290" valign="top" style="width:290px;">
+    <![endif]-->
+
+                <!-- SPACER -->
+                <table
+                  width="30"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 30px;
+                    display: inline-table;
+                    vertical-align: top;
+                  "
+                >
+                  <tr>
+                    <td style="width: 30px; font-size: 1px; line-height: 1px">
                       &nbsp;
-                    </td>
-
-                    <!-- RIGHT COLUMN: Text and Button -->
-                    <td
-                      width="290"
-                      align="left"
-                      valign="top"
-                      style="width: 290px"
-                    >
-                      <table
-                        width="100%"
-                        border="0"
-                        cellpadding="0"
-                        cellspacing="0"
-                      >
-                        <tr>
-                          <td
-                            align="left"
-                            style="
-                              font-family: Roboto, sans-serif;
-                              font-size: 14px !important;
-                              color: #333333;
-                              line-height: 1.5;
-                              padding-bottom: 25px !important;
-                            "
-                          >
-                            The maritime sector is entering a transformative
-                            era. With new IMO digital regulations, increasing
-                            adoption of smart systems, and a global focus on
-                            efficiency and decarbonisation, AI is no longer
-                            optional; it’s essential. TMS AITECH 2026 has been
-                            launched to help the industry navigate this shift
-                            with clarity, strategic direction, and
-                            collaboration. The conference will feature a single
-                            half-day session, followed by an evening cocktail
-                            and networking gathering, giving delegates the
-                            opportunity to engage, connect, and exchange ideas
-                            with industry peers. Click below to view the full
-                            agenda and explore the session in detail.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td align="left">
-                            <a
-                              href="https://tmsaitechconference.com/conference-programme"
-                              target="_blank"
-                              style="
-                                text-decoration: none;
-                                display: block;
-                                line-height: 0;
-                                font-size: 0;
-                              "
-                            >
-                              <img
-                                src="/assets/AITECH-E-arrow-right.jpeg"
-                                width="200"
-                                height="50"
-                                alt="View Agenda"
-                                border="0"
-                                style="
-                                  display: block;
-                                  border: 0;
-                                  width: 200px;
-                                  height: auto;
-                                  max-width: 100%;
-                                "
-                              />
-                            </a>
-                          </td>
-                        </tr>
-                      </table>
                     </td>
                   </tr>
                 </table>
+
+                <!-- RIGHT: Text -->
+                <table
+                  width="290"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 290px;
+                    display: inline-table;
+                    vertical-align: top;
+                  "
+                >
+                  <tr>
+                    <td
+                      align="left"
+                      style="
+                        font-family: Roboto, sans-serif;
+                        font-size: 14px;
+                        color: #333333;
+                        line-height: 21px;
+                        padding-bottom: 25px;
+                        mso-line-height-rule: exactly;
+                      "
+                    >
+                      The maritime sector is entering a transformative era. With
+                      new IMO digital regulations, increasing adoption of smart
+                      systems, and a global focus on efficiency and
+                      decarbonisation, AI is no longer optional; it&rsquo;s
+                      essential. TMS AITECH 2026 has been launched to help the
+                      industry navigate this shift with clarity, strategic
+                      direction, and collaboration. The conference will feature
+                      a single half-day session, followed by an evening cocktail
+                      and networking gathering, giving delegates the opportunity
+                      to engage, connect, and exchange ideas with industry
+                      peers. Click below to view the full agenda and explore the
+                      session in detail.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <!-- OUTLOOK (old/new): Image button via VML -->
+                      <!--[if mso]>
+                        <v:rect
+                          xmlns:v="urn:schemas-microsoft-com:vml"
+                          xmlns:w="urn:schemas-microsoft-com:office:word"
+                          href="https://tmsaitechconference.com/conference-programme"
+                          style="height: 45px; width: 210px"
+                          stroke="f"
+                          fillcolor="#123674"
+                        >
+                          <w:anchorlock />
+                          <v:fill
+                            type="frame"
+                            src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-E-arrow-right.jpeg"
+                            color="#123674"
+                          />
+                          <v:textbox
+                            inset="0,0,0,0"
+                            style="mso-fit-shape-to-text: false"
+                          >
+                            <table
+                              width="210"
+                              border="0"
+                              cellpadding="0"
+                              cellspacing="0"
+                              role="presentation"
+                              style="
+                                width: 210px;
+                                height: 45px;
+                                mso-table-lspace: 0pt;
+                                mso-table-rspace: 0pt;
+                              "
+                            >
+                              <tr>
+                                <td style="height: 45px; line-height: 45px">
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            </table>
+                          </v:textbox>
+                        </v:rect>
+                      <![endif]-->
+
+                      <!-- NON-OUTLOOK: Single image button — Gmail, Zoho, Apple Mail, Yahoo, Outlook.com -->
+                      <!--[if !mso]><!-->
+                      <a
+                        href="https://tmsaitechconference.com/conference-programme"
+                        target="_blank"
+                        style="
+                          display: inline-block;
+                          text-decoration: none;
+                          line-height: 0;
+                          vertical-align: top;
+                          -webkit-text-size-adjust: none;
+                        "
+                      >
+                        <img
+                          src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/AITECH-E-arrow-right.jpeg"
+                          width="210"
+                          height="45"
+                          alt="View Agenda"
+                          style="
+                            display: block;
+                            width: 210px;
+                            height: 45px;
+                            border: 0;
+                          "
+                        />
+                      </a>
+                      <!--<![endif]-->
+                    </td>
+                  </tr>
+                </table>
+
+                <!--[if mso]>
+        </td>
+      </tr>
+    </table>
+    <![endif]-->
               </td>
             </tr>
-            <!-- ===== Sponsors ===== -->
+
+            <!-- ===== SPONSORS HEADER ===== -->
             <tr>
-              <td align="center" bgcolor="#5e17eb" style="padding: 0">
-                <!-- Sponsors Header Bar -->
+              <td
+                align="center"
+                bgcolor="#5e17eb"
+                style="padding: 0; background-color: #5e17eb"
+              >
                 <table
                   width="650"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
                   bgcolor="#5e17eb"
-                  class="full-width"
-                  style="width: 650px"
+                  role="presentation"
+                  style="width: 650px; background-color: #5e17eb"
                 >
                   <tr>
                     <td
                       align="center"
                       style="
                         padding: 15px 10px;
-                        font-family: Roboto, sans-serif;
+                        font-family: Roboto, Roboto, sans-serif;
                         font-size: 20px;
                         color: #ffffff;
                         letter-spacing: 8px;
                         font-weight: 500;
                         text-transform: uppercase;
+                        background-color: #5e17eb;
+                        mso-line-height-rule: exactly;
                       "
                     >
                       Sponsors
@@ -1072,106 +1811,200 @@
                 </table>
               </td>
             </tr>
+
+            <!-- ===== SPONSORS CARDS ===== -->
             <tr>
               <td
                 align="center"
                 bgcolor="#ffffff"
-                style="padding: 30px 0 40px 0"
+                style="padding: 30px 20px 40px 20px; background-color: #ffffff"
               >
-                <!-- Sponsors Cards Container -->
+         
+                <!--[if mso]>
+                  <table
+                    width="600"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    align="center"
+                    style="
+                      width: 600px;
+                      border-collapse: collapse;
+                      mso-table-lspace: 0pt;
+                      mso-table-rspace: 0pt;
+                    "
+                  >
+                    <tr>
+                      <td
+                        width="185"
+                        valign="middle"
+                        align="center"
+                        bgcolor="#f2f2f2"
+                        style="
+                          width: 185px;
+                          padding: 20px 12px;
+                          background-color: #f2f2f2;
+                          vertical-align: middle;
+                          border: 2px solid #112c6a;
+                          mso-border-alt: solid #112c6a 2px;
+                        "
+                      >
+                        <img
+                          src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-platinum-sponsor.png"
+                          width="161"
+                          alt="Platinum Sponsor"
+                          style="
+                            width: 161px;
+                            height: auto;
+                            border: 0;
+                            display: block;
+                            margin: 0 auto;
+                          "
+                        />
+                      </td>
+                      <td
+                        width="15"
+                        style="width: 15px; font-size: 1px; line-height: 1px"
+                      >
+                        &nbsp;
+                      </td>
+                      <td
+                        width="400"
+                        valign="middle"
+                        align="center"
+                        style="
+                          width: 400px;
+                          border: 2px solid #112c6a;
+                          mso-border-alt: solid #112c6a 2px;
+                          padding: 0;
+                          vertical-align: middle;
+                        "
+                      >
+                        <table
+                          width="400"
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          style="
+                            width: 400px;
+                            border-collapse: collapse;
+                            mso-table-lspace: 0pt;
+                            mso-table-rspace: 0pt;
+                          "
+                        >
+                          <tr>
+                            <td
+                              width="200"
+                              align="center"
+                              valign="middle"
+                              style="
+                                width: 200px;
+                                padding: 18px 10px;
+                                vertical-align: middle;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-multimedia-sponsor.png"
+                                width="155"
+                                alt="Multimedia Sponsor"
+                                style="
+                                  width: 155px;
+                                  height: auto;
+                                  border: 0;
+                                  display: block;
+                                  margin: 0 auto;
+                                "
+                              />
+                            </td>
+                            <td
+                              width="200"
+                              align="center"
+                              valign="middle"
+                              style="
+                                width: 200px;
+                                padding: 18px 10px;
+                                vertical-align: middle;
+                                border-left: 1px solid #dddddd;
+                                mso-border-left-alt: solid #dddddd 1px;
+                              "
+                            >
+                              <img
+                                src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-networking-sponsor.png"
+                                width="155"
+                                alt="Networking Cocktails Sponsor"
+                                style="
+                                  width: 155px;
+                                  height: auto;
+                                  border: 0;
+                                  display: block;
+                                  margin: 0 auto;
+                                "
+                              />
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                <![endif]-->
+
+                <!--[if !mso]><!-->
                 <table
                   width="600"
                   border="0"
                   cellpadding="0"
                   cellspacing="0"
-                  class="full-width"
-                  style="width: 600px"
+                  role="presentation"
+                  align="center"
+                  style="
+                    width: 600px;
+                    max-width: 600px;
+                    border-collapse: collapse;
+                    font-size: 0;
+                    line-height: 0;
+                  "
                 >
                   <tr>
-                    <!-- Platinum Card (Left) -->
                     <td
-                      width="190"
+                      style="font-size: 0; line-height: 0; padding: 0"
                       align="center"
                       valign="middle"
-                      bgcolor="#f2f2f2"
-                      style="
-                        width: 190px;
-                        padding: 15px 0;
-                        background-color: #f2f2f2;
-                      "
                     >
-                      <img
-                        src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-platinum-sponsor.png"
-                        width="190"
-                        alt="Platinum Sponsor"
-                        style="
-                          width: 100%;
-                          max-width: 190px;
-                          height: auto;
-                          border: 0;
-                          display: block;
-                        "
-                      />
-                    </td>
-
-                    <!-- Spacer -->
-                    <td
-                      width="20"
-                      style="width: 20px; font-size: 1px; line-height: 1px"
-                    >
-                      &nbsp;
-                    </td>
-
-                    <!-- Right Box (Multimedia & Network) -->
-                    <td
-                      width="390"
-                      align="center"
-                      valign="middle"
-                      style="
-                        width: 390px;
-                        border: 2px solid #112c6a;
-                        padding: 10px 0;
-                      "
-                    >
+                      <!-- Platinum: 185px - 4px border = use 181px inner, border adds back 4px = 185px total -->
                       <table
-                        width="100%"
+                        width="181"
                         border="0"
                         cellpadding="0"
                         cellspacing="0"
+                        bgcolor="#f2f2f2"
+                        role="presentation"
+                        style="
+                          width: 181px;
+                          display: inline-table;
+                          vertical-align: middle;
+                          background-color: #f2f2f2;
+                          border: 2px solid #112c6a;
+                        "
                       >
                         <tr>
                           <td
-                            width="195"
                             align="center"
-                            valign="top"
-                            style="width: 195px; padding: 0"
+                            valign="middle"
+                            bgcolor="#f2f2f2"
+                            style="
+                              padding: 20px 12px;
+                              background-color: #f2f2f2;
+                            "
                           >
                             <img
-                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-multimedia-sponsor.png"
-                              width="195"
-                              alt="Multimedia Sponsor"
+                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-platinum-sponsor.png"
+                              width="155"
+                              alt="Platinum Sponsor"
                               style="
-                                width: 195px;
-                                max-width: 195px;
-                                height: auto;
-                                border: 0;
-                                display: block;
-                              "
-                            />
-                          </td>
-                          <td
-                            width="195"
-                            align="center"
-                            valign="top"
-                            style="width: 195px; padding: 0"
-                          >
-                            <img
-                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-networking-sponsor.png"
-                              width="195"
-                              alt="Networking Cocktails Sponsor"
-                              style="
-                                width: 100%;
-                                max-width: 195px;
+                                width: 155px;
+                                max-width: 155px;
                                 height: auto;
                                 border: 0;
                                 display: block;
@@ -1180,13 +2013,111 @@
                           </td>
                         </tr>
                       </table>
+                      <!--
+      -->
+                      <table
+                        width="15"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="
+                          width: 15px;
+                          display: inline-table;
+                          vertical-align: middle;
+                        "
+                      >
+                        <tr>
+                          <td
+                            style="
+                              width: 15px;
+                              font-size: 1px;
+                              line-height: 1px;
+                            "
+                          >
+                            &nbsp;
+                          </td>
+                        </tr>
+                      </table>
+                      <!--
+      -->
+                      <table
+                        width="396"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="
+                          width: 396px;
+                          display: inline-table;
+                          vertical-align: middle;
+                          border: 2px solid #112c6a;
+                        "
+                      >
+                        <tr>
+                          <td
+                            width="198"
+                            align="center"
+                            valign="middle"
+                            style="
+                              width: 198px;
+                              padding: 18px 10px;
+                              vertical-align: middle;
+                              border-right: 1px solid #dddddd;
+                              font-size: 14px;
+                              line-height: 1;
+                            "
+                          >
+                            <img
+                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-multimedia-sponsor.png"
+                              width="155"
+                              alt="Multimedia Sponsor"
+                              style="
+                                width: 155px;
+                                max-width: 155px;
+                                height: auto;
+                                border: 0;
+                                display: block;
+                                margin: 0 auto;
+                              "
+                            />
+                          </td>
+                          <td
+                            width="198"
+                            align="center"
+                            valign="middle"
+                            style="
+                              width: 198px;
+                              padding: 18px 10px;
+                              vertical-align: middle;
+                              font-size: 14px;
+                              line-height: 1;
+                            "
+                          >
+                            <img
+                              src="https://befirst-productions.github.io/ai-tech-email-temp-latest/assets/aitech-networking-sponsor.png"
+                              width="155"
+                              alt="Networking Cocktails Sponsor"
+                              style="
+                                width: 155px;
+                                max-width: 155px;
+                                height: auto;
+                                border: 0;
+                                display: block;
+                                margin: 0 auto;
+                              "
+                            />
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                 </table>
+                <!--<![endif]-->
               </td>
             </tr>
 
-            <!-- ================= Footer ================= -->
+            <!-- ================= FOOTER ================= -->
             <tr>
               <td
                 align="center"
@@ -1198,8 +2129,8 @@
                   cellpadding="0"
                   cellspacing="0"
                   border="0"
-                  style="width: 650px"
-                  class="full-width"
+                  role="presentation"
+                  style="width: 650px; background-color: #123674"
                 >
                   <tr>
                     <td align="center" style="padding: 30px 40px">
@@ -1208,6 +2139,7 @@
                         cellpadding="0"
                         cellspacing="0"
                         border="0"
+                        role="presentation"
                       >
                         <tr>
                           <td
@@ -1218,6 +2150,7 @@
                               color: #ffffff;
                               line-height: 1.3;
                               padding-bottom: 25px;
+                              mso-line-height-rule: exactly;
                             "
                           >
                             Be part of the
@@ -1232,7 +2165,7 @@
                               <v:rect
                                 xmlns:v="urn:schemas-microsoft-com:vml"
                                 xmlns:w="urn:schemas-microsoft-com:office:word"
-                                href="https://tmsaitechconference.com/"
+                                href="https://tmsaitechconference.com/delegate-registration-payment"
                                 style="
                                   height: 50px;
                                   v-text-anchor: middle;
@@ -1255,14 +2188,14 @@
                                 </center>
                               </v:rect>
                             <![endif]-->
-                            <!--[if !mso]><!-- -->
+                            <!--[if !mso]><!-->
                             <a
                               href="https://tmsaitechconference.com/delegate-registration-payment"
                               style="
                                 background-color: #602cd2;
                                 color: #ffffff;
                                 display: inline-block;
-                                font-family: Roboto, sans-serif;
+                                font-family: Roboto, Arial, sans-serif;
                                 font-size: 18px;
                                 font-weight: bold;
                                 line-height: 50px;
@@ -1271,6 +2204,7 @@
                                 width: 200px;
                                 -webkit-text-size-adjust: none;
                                 letter-spacing: 1px;
+                                mso-hide: all;
                               "
                               >BOOK NOW</a
                             >
@@ -1283,6 +2217,8 @@
                 </table>
               </td>
             </tr>
+
+            <!-- END MAIN CONTAINER -->
           </table>
         </td>
       </tr>
